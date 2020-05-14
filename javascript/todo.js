@@ -3,8 +3,9 @@ const input = document.querySelector("#novaTarefa");
 const imgAdd = document.querySelector("#add");
 
 function checkError(event) {
-    if(!input.value) {
+    if(!input.value || input.value.trim().length <=0) {
         alert("Você precisa digitar algum valor para seguir!")
+        input.value=''
         input.placeholder="Digite um texto aqui!";
         input.style.borderColor = "red"
         input.focus()
@@ -42,6 +43,7 @@ function addTask(event) {
     input.value = "";
     input.placeholder=''
     input.style.borderColor=''
+    input.focus();
   }
 
 
