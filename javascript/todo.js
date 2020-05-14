@@ -1,31 +1,62 @@
+const board = document.querySelector("#board");
+const input = document.querySelector("#novaTarefa");
+const imgAdd = document.querySelector("#add");
 
-const inNovaTarefa = document.querySelector("#novaTarefa");
-const btnAdd = document.querySelector('#add')
-const board = document.querySelector('#board');
-
-function addCard(newTask=''){
-    console.log('teste ok');
-    board.innerHTML += `
-        <div class="tarefa">
-        <div class="col-md-8">${newTask}</div>
-        <div class="col-md-2"><img class="icon" src="img/check.png"></div>
-    </div> 
-    `
+function checkError(event) {
+    if(!input.value) {
+        alert("Você precisa digitar algum valor para seguir!")
+        input.placeholder="Digite um texto aqui!";
+        input.style.borderColor = "red"
+        input.focus()
+        return false
+    } else {
+        return true
+    }
 }
 
-function rmCard() {
-    console.log
+function addTask(event) {
+  const tarefaDigitada = input.value;
+  if (checkError()) {
+    const divTarefa = document.createElement("div");
+    divTarefa.classList.add("tarefa");
+  
+    const divConteudo = document.createElement("div");
+    divConteudo.classList.add("col-md-8");
+    divConteudo.innerText = tarefaDigitada;
+  
+    const divImg = document.createElement("div");
+    divImg.classList.add("col-md-2");
+  
+    const imgCheck = document.createElement("img");
+    imgCheck.setAttribute("src", "img/check.png");
+    imgCheck.setAttribute("class", "icon");
+
+    imgCheck.onclick = () => divTarefa.remove()
+  
+    divImg.appendChild(imgCheck);
+  
+    divTarefa.appendChild(divConteudo);
+    divTarefa.appendChild(divImg);
+  
+    board.appendChild(divTarefa);
+    input.value = "";
+    input.placeholder=''
+    input.style.borderColor=''
+  }
+
+
+//   btns.forEach(btn =>{
+//     btn.addEventListener('click', () => {btn.parentNode.parentNode.remove()})
+//   })
+
+
 }
 
-btnAdd.onclick = () => {
-    addCard(inNovaTarefa.value)
-}
+input.addEventListener("keypress", (event) => {
+  if (event.key === 'Enter') {
+    addTask();
+  }
+});
 
-inNovaTarefa.onchange = () =>{
-    addCard(inNovaTarefa.value)
-}
-
-console.log(document.querySelectorAll("#novaTarefa"))
-
-
+imgAdd.onclick = addTask;
 
