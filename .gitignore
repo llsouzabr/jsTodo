@@ -108,3 +108,5 @@ dist
 **/*.code-workspace
 configs/.dbPass
 **/.git-*
+**/.git
+
